@@ -1,0 +1,26 @@
+#stars-filled {
+    color: #33ccff;
+    position: relative;
+    z-index: 10;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#stars-outline {
+    color: grey;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+#stars {
+    display: inline-block;
+    position: relative;
+}
+
+#stars-block {
+    display: block;
+    position: relative;
+    overflow: hidden;
+  }

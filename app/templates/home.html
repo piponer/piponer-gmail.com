@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Student Chatbot</title>
+
+  <link rel="shortcut icon" href="../static/img/favicon.png">
+
+  <link rel="stylesheet" href="{{url_for('static',filename='css/home.css')}}">
+  <!-- Bootstrap CSS  -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+    integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body style="background-color: rgba(238, 249, 255, 0.37);">
+
+  <!-- navigation bar -->
+  <nav class="navbar navbar-expand-sm p-3"
+    style="background: linear-gradient(to bottom left, #0099ff 0%, #33ccff 100%);">
+
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Brand/logo -->
+      <a class="navbar-brand" style="color:whitesmoke" href="#">NoIdea</a>
+      <!-- Links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" style="color: whitesmoke" href="{{url_for('register')}}">Register</a>
+        </li>
+      </ul>
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="container" style="float: left">
+          <br>
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#News">News</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#Feedback">Feedback</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#ContactUs">Contact us</a>
+            </li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <!-- News -->
+            <div id="News" class="container tab-pane active"><br>
+              <div class="d-flex flex-column align-items-center mb-5">
+                <div id="star-value" style="display: none;">{{avg_rating}}</div>
+                <span id="stars-block">
+                  <div id="stars" style="font-size: 50px;">
+                    <span id="stars-filled">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </span>
+                    <span id="stars-outline">
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star"></i>
+                    </span>
+                  </div>
+                </span>
+
+                <div class="text-muted" style="text-align: center;">
+                    <h5><strong style="color:#33ccff">{{num_rating}}</strong> total ratings</h5>
+                    <h5><strong style="color:#33ccff">{{num_users}}</strong> total users</h5>
+                    <h1 class="mt-4">NoIdea have answered <strong style="color:#33ccff">{{total_questions}}</strong> questions in total</h1>
+                </div>
+              </div>
+
+              {% for news in news_list %}
+              <li style="margin-top:15px; margin-left: 20px;font-size: 25px;color:#2E4059"> {{news.news}} </li>
+              {% endfor %}
+            </div>  <!-- New end -->
+
+            <div id="Feedback" class="container tab-pane fade"><br>
+              <button style="float: left; margin-left: 15%; margin-top: 2%; border: none" type="submit"
+                class="btn btn-primary" id="feedback_button">Submit</button>
+            </div>
+
+            <div id="ContactUs" class="container tab-pane fade"><br>
+              <button style="float: left; margin-left: 15%; margin-top: 2%; border: none" type="submit"
+                class="btn btn-primary" id="contact_us_button">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- login -->
+      <div class="col-md-4" id="login_div">
+        <form style="width: 70%; padding: 15px; margin: 20px; float: right;" class="form-signin" method="POST"
+          action="{{url_for('login')}}">
+          <div align="center"><img class="mb-4" src="{{ url_for('static', filename='img/bot.jpg') }}" width="100"
+              height="100"></div>
+
+          <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+          <label class="sr-only">Email address</label>
+          <input type="email" name="emailaddress" class="form-control mb-2" placeholder="Email" required autofocus>
+          <label class="sr-only">Password</label>
+          <input type="password" name="password" class="form-control mb-2" placeholder="Password" required>
+
+          <div class="mt-3 mb-3" style="color:#F00;"> {{message}} </div>
+
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" name="remember-me" class="custom-control-input" value="remember-me" id="customCheck">
+            <label class="custom-control-label" value="checked" for="customCheck">Remember me</label>
+          </div>
+
+          <button class="btn btn-primary mt-3" id="login_button" type="submit">Login</button>
+          <p class="mt-3 mb-3 text-muted">&copy; Comp3900/Comp9900-Group-NOIDEA</p>
+        </form>
+      </div>
+
+    </div> <!-- row -->
+  </div> <!-- container-fluid -->
+
+  <script type="text/javascript" src="static/scripts/main.js"></script>
+</body>
+
+</html>

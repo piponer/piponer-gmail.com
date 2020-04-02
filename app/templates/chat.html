@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Student Chatbot</title>
+
+  <link rel="shortcut icon" href="../static/img/favicon.png">
+
+  <!-- Bootstrap CSS  -->
+  <link rel="stylesheet" href="{{url_for('static',filename='css/chat.css')}}">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+    integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+  <style>
+    .hidden {
+      display: none !important;
+    }
+
+    .box {
+      left: 0px;
+      width: 50px;
+      height: 200px;
+    }
+  </style>
+</head>
+
+<body style="background-color: rgba(238, 249, 255, 0.37);">
+  <!-- navigation bar -->
+  <nav class="navbar navbar-expand-sm p-3"
+    style="background: linear-gradient(to bottom left, #0099ff 0%, #33ccff 100%);">
+
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" style="color:whitesmoke" href="#">NoIdea</a>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <button id="Home" style="color: black" class="btn bg-transparent nav-link">Home</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" style="color: whitesmoke;">{{userID}}</a>
+        </li>
+        <li class=" nav-item">
+          <form action="/logout">
+            <button type="submit" class="nav-link btn text-muted bg-transparent border-0" id="logout">Logout</button>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- main body -->
+  <div class="container-fluid mt-4">
+    <div class="row">
+      <div class="col-md-8" id="div1">
+        <div class="div2">
+          <ul style="list-style: none; position: fixed;">
+            <li><img src="{{url_for('static',filename='img/d1.jpg')}}" width="162" height="200" /></li>
+            <li><img src="{{url_for('static',filename='img/d2.jpg')}}" width="162" height="200" /></li>
+            <li><img src="{{url_for('static',filename='img/d3.jpg')}}" width="162" height="200" /></li>
+            <li><img src="{{url_for('static',filename='img/d4.jpg')}}" width="162" height="200" /></li>
+            <li><img src="{{url_for('static',filename='img/d1.jpg')}}" width="162" height="200" /></li>
+            <li><img src="{{url_for('static',filename='img/d2.jpg')}}" width="162" height="200" /></li>
+            <li><img src="{{url_for('static',filename='img/d3.jpg')}}" width="162" height="200" /></li>
+            <li><img src="{{url_for('static',filename='img/d4.jpg')}}" width="162" height="200" /></li>
+          </ul>
+        </div>
+
+        <div class="d-flex flex-column align-items-center" style="position: relative; margin-top: 250px;">
+          <h1 class="text-muted mb-5">You have asked <strong style="color:#33ccff">{{total_user_questions}}</strong>
+            questions total</h1>
+          <div><img src="{{url_for('static',filename='img/robot.jpg')}}" width="762" height="440" /></div>
+        </div>
+      </div>
+
+      <div id="home-content" class="col-md-8" style="display:none; z-index: 10;">
+        <div class="container" style="float: left">
+          <br>
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#AboutUs">About NoIdea</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#Feedback">Feedback</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#ContactUs">Contact us</a>
+            </li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div id="AboutUs" class="container tab-pane active"><br>
+              <!-- instructions -->
+              <p style="font-size: 20px;">
+                NoIdea was trained on Ubuntu chat logs and specialises in Ubuntu associated problems. </br>
+                NoIdea can also answer certain problems and questions associated with UNSW COMP courses. </br></br>
+                
+                Enter a question in the input box provided and press <kbd>Enter</kbd> or click <i class="mx-1 fa fa-paper-plane fa-gradient" aria-hidden="true"></i>. </br></br>
+
+                Scrolling past the last message in the chat will show <i class="fas fa-comment-dots ml-3"></i> You are viewing older messages <i class="fa fa-caret-down ml-3"></i> </br>
+                <ul>
+                  <li style="font-size: 20px;">Clicking <i class="fa fa-caret-down mx-1"></i> will scroll the chat back to the bottom.</li>
+                </ul> </br>
+
+                <p style="font-size: 20px;">Click <i class="fa fa-cog mx-1" style="color: #0099ff;"></i> in the top right corner of the chat to show options to clear chat or search the chat. </p>
+                <ul>
+                  <li style="font-size: 20px;">
+                      Clicking <i>Clear</i> will remove all questions and answers from the chat permanently.
+                  </li>
+                  
+                  <li style="font-size: 20px;"> 
+                      Clicking <i>Search</i> will show a search input box. 
+                      <ul>
+                        <li class="ml-3">Clicking <i class="fa fa-caret-down fa-gradient mx-1" aria-hidden="true"></i> will find the next message containing your input word(s) from the start until no more matches are found. </li>
+                        <li class="ml-3">Clicking <i class="fa fa-times fa-gradient mx-1" aria-hidden="true"></i> will hide the search input box. </li>
+                      </ul>
+                    </li>
+                  </ul>
+              </p>
+            </div>
+            <div id="Feedback" class="container tab-pane fade"><br>
+              <button style="float: left; margin-left: 15%; margin-top: 2%; border: none" type="submit"
+                class="btn btn-primary" id="feedback_button">Submit</button>
+            </div>
+            <div id="ContactUs" class="container tab-pane fade"><br>
+              <button style="float: left; margin-left: 15%; margin-top: 2%; border: none" type="submit"
+                class="btn btn-primary" id="contact_us_button">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 container" style="z-index: 100;">
+
+        <div class="card border-0 shadow" style="border-radius:10px">
+          <div class="d-flex align-content-center justify-content-between card-header border-0 p-4"
+            style="background: linear-gradient(to bottom left, #0099ff 0%, #33ccff 100%); border-top-right-radius: 10px; border-top-left-radius: 10px;">
+            <h2 style="color:whitesmoke"><i class="fas fa-robot"></i> &nbsp;NoIdea Chatbot</h2>
+            <!-- <i class="fas fa-cog"></i> -->
+            <div class="nav-item dropdown">
+              <a class="nav-link" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <i class="fa fa-cog"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <button id="clear-button" style="text-align: start; border-radius: 0px;"
+                  class="btn w-100">Clear</button>
+                <button id="search-button" style="text-align: start; border-radius: 0px;"
+                  class="btn w-100">Search</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body" id="border">
+            <!-- search through history -->
+            <div class="mb-3" id="search-history" style="display: none;">
+              <div class="input-group">
+                <input type="search" class="form-control rounded-pill bg-light p-2 pl-3 shadow-sm"
+                  style="border-bottom:1px solid #33ccff;" placeholder="Search history" id="search"></input>
+                <div class="btn-group">
+                  <button class="btn btn-primary bg-transparent border-0" id="search-next">
+                    <i class="fa fa-caret-down fa-gradient" aria-hidden="true"></i>
+                  </button>
+                  <button class="btn btn-primary bg-transparent border-0" id="search-close">
+                    <i class="fa fa-times fa-gradient" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+              <i id="search-error" style="color:red; display: none;">No more results!</i>
+            </div>
+
+            <div class="form-group" id="chatBox"
+              style="width:100%; height:60vh; overflow: auto; border:1px solid #33ccff">
+              <br>
+              <!-- Bot initial hello message -->
+              <div class="card border-0">
+                <div class="card-body" style="text-align: left">
+                  <img src="{{url_for('static', filename='img/boter2.jpg')}}" alt="" class="rounded-circle"
+                    style="width: 10%">
+                  <div class="btn ml-2 p-3 pl-4 blue-gradient border-0"
+                    style="background: linear-gradient(to bottom left, #0099ff 0%, #33ccff 100%); color:whitesmoke; width: 80%; text-align: left; border-radius:10px;">
+                    Hi there! <br /> How can I help you?
+                  </div>
+                  <br />
+                </div>
+              </div>
+
+              <div id="chatbot_window">
+                {% for question in questions %}
+                <!-- user sentence -->
+                <div class="card border-0">
+                  <div id="user-sentences" class="card-body user-sentences" style="text-align: right">
+                    <div class="btn mr-2 p-3 pr-4 sentences"
+                      style="background-color:#F4F6F8; color:dodgerblue; width: 80%; text-align: right; border-radius:10px;">
+                      {{question.content}}
+                    </div>
+                    <img src="{{url_for('static', filename='img/user2.jpg')}}" alt="" class="rounded-circle ml-1"
+                      style="width: 10%;">
+                    <br />
+                    <span class="text-muted" style="font-size: 11px;"> {{question.time}} </span>
+                  </div>
+                </div>
+
+                <!-- bot sentence -->
+                <div class="card border-0">
+                  <div id="bot-sentences" class="card-body bot-sentences" style="text-align: left">
+                    <img src="{{url_for('static', filename='img/boter2.jpg')}}" alt="" class="rounded-circle"
+                      style="width: 10%">
+                    <div class="btn ml-2 p-3 pl-4 blue-gradient border-0 sentences"
+                      style="background: linear-gradient(to bottom left, #0099ff 0%, #33ccff 100%); color:whitesmoke; width: 80%; text-align: left; border-radius:10px;">
+                      {{question.answer}}
+                    </div>
+                    <br />
+                    <span class="text-muted" style="font-size: 11px;"> {{question.answer_time}}</span>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+
+              <!-- new sentences -->
+              <div id="appended_sentences"></div>
+
+              <!-- view older message -->
+              <div id="to-bottom" class="d-flex justify-content-between align-items-center bg-dark hidden"
+                style="position: -webkit-sticky; position: sticky; bottom: 0px; z-index: 1; opacity: 80%;">
+                <div class="pl-3" style="color: white"> <i class="fas fa-comment-dots"></i> You are viewing older
+                  messages </div>
+                <button class="btn bg-transparent border-0" id="go-to-bottom">
+                  <i class="fa fa-caret-down" style="color: white" aria-hidden="true"></i>
+                </button>
+              </div>
+
+              <!-- Loading -->
+              <!-- position: relative; bottom: 0; -->
+              <button id="loading-answer" class="btn btn-primary bg-transparent border-0 text-muted"
+                style="display: none;" disabled>
+                NoIdea is typing
+                <span class="spinner-grow spinner-grow-sm"></span>
+                <span class="spinner-grow spinner-grow-sm"></span>
+                <span class="spinner-grow spinner-grow-sm"></span>
+              </button>
+            </div>
+
+            <div class="input-group mt-4 mb-3" id="input-div">
+              <input type="text" class="form-control rounded-pill bg-light p-4 mr-2 shadow-sm"
+                style="border-bottom:1px solid #33ccff;" placeholder="Send a question" name="context"></input>
+              <button id="inputByKey" class="btn btn-primary bg-transparent border-0" name="enter-button"><i
+                  class="fa fa-paper-plane fa-gradient" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- template user message -->
+    <div id="user_sentence_template" class="card border-0" style="display: none;">
+      <div class="card-body" style="text-align: right">
+        <div class="btn mr-2 p-3 pr-4 sentences"
+          style="background-color:#F4F6F8; color:dodgerblue; width: 80%; text-align: right; border-radius:10px;"></div>
+        <img src="{{url_for('static', filename='img/user2.jpg')}}" alt="" class="rounded-circle" style="width: 10%;">
+        <br /><span class="text-muted" style="font-size: 11px"></span>
+      </div>
+    </div>
+
+    <!-- template bot message -->
+    <div id="bot_sentence_template" class="card border-0" style="display: none;">
+      <div class="card-body" style="text-align: left;">
+        <img src="{{url_for('static', filename='img/boter2.jpg')}}" alt="" class="rounded-circle" style="width: 10%">
+        <div class="btn ml-2 p-3 pl-4 blue-gradient border-0 sentences"
+          style="background: linear-gradient(to bottom left, #0099ff 0%, #33ccff 100%); color:whitesmoke; width: 80%; text-align: left; border-radius:10px;">
+        </div>
+        <br /><span class="text-muted" style="font-size: 11px;"></span>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="../../static/scripts/chatbot.js"></script>
+  <script type="text/javascript" src="../../static/scripts/main.js"></script>
+</body>
+
+</html>
