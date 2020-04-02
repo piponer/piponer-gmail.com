@@ -1,4 +1,4 @@
-Chat with bot
+
 1, need to install package and create virtual environment follow requirements.txt
  
 2, sample input tranning data download the files from https://drive.google.com/open?id=1iqKwXqKZC1kHCJLyEgT3mpSY5agnQkTX and drag them into the app directory, glove.6B, useful_dataset is not necessary to run the application but it needed for training.
